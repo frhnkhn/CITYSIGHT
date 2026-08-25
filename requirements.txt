@@ -4,6 +4,14 @@ pydantic
 sqlalchemy
 ultralytics
 opencv-python
+python-multipart==0.0.9
+
+# Advanced Database & GIS
+psycopg2-binary==2.9.9
+geoalchemy2==0.14.7
+
+# Event Streaming
+confluent-kafka==2.4.0
 easyocr
 pytest
 httpx

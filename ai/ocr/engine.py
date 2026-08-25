@@ -3,6 +3,9 @@ import re
 import numpy as np
 from typing import Tuple, Optional
 
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
 class OCREngine:
     def __init__(self, gpu: bool = False):
         """
