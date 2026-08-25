@@ -35,6 +35,6 @@ fi
 
 # Run the inference pipeline
 echo "Starting AI Pipeline on CAM01..."
-python3 ai/pipeline.py --video "$VIDEO_FILE" --camera-id CAM01 --max-frames 300
+python3 ai/pipeline.py --video "demo_traffic.mp4" --camera-id CAM01 --max-frames 300
 
 echo "Done!"

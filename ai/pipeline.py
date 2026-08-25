@@ -17,7 +17,7 @@ from ai.ocr.engine import OCREngine
 from ai.tracking.single_camera import CameraTracker
 
 # Set the API endpoint for sending detections
-API_ENDPOINT = "http://localhost:8000/api/detections/"
+API_ENDPOINT = "http://localhost:8000/api/detections"
 
 def post_tracks_to_backend(camera_id: str, tracks: list):
     """

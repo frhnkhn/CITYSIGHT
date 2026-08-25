@@ -7,11 +7,11 @@ opencv-python
 python-multipart==0.0.9
 
 # Advanced Database & GIS
-psycopg2-binary==2.9.9
-geoalchemy2==0.14.7
+# psycopg2-binary==2.9.9 (Uncomment in Docker)
+# geoalchemy2==0.14.7 (Uncomment in Docker)
 
 # Event Streaming
-confluent-kafka==2.4.0
+# confluent-kafka==2.4.0 (Uncomment in Docker)
 easyocr
 pytest
 httpx

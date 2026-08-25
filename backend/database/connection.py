@@ -8,8 +8,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 os.makedirs(DATA_DIR, exist_ok=True)
 
-# Default to PostgreSQL (TimescaleDB) for production, with SQLite fallback
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://admin:secret@localhost:5432/citysight")
+# Use SQLite by default for local dev without Docker
+# In production, docker-compose injects the Postgres URL
+_sqlite_url = f"sqlite:///{os.path.join(DATA_DIR, 'citysight.db')}"
+DATABASE_URL = os.getenv("DATABASE_URL", _sqlite_url)
 
 if DATABASE_URL.startswith("sqlite"):
     engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})

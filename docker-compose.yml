@@ -12,6 +12,7 @@ services:
       - .:/app
     environment:
       - PYTHONUNBUFFERED=1
+      - DATABASE_URL=postgresql://admin:secret@postgres:5432/citysight
     command: uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
 
   frontend:

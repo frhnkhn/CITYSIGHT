@@ -1,6 +1,10 @@
 import json
 from typing import Dict, Any
-from confluent_kafka import Producer
+try:
+    from confluent_kafka import Producer
+except ImportError:
+    Producer = None
+    print("[KAFKA] Warning: confluent_kafka not installed. Kafka events will be suppressed locally.")
 
 # Kafka connection config
 KAFKA_BROKER = "kafka:9092"

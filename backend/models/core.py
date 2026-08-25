@@ -1,8 +1,9 @@
 import datetime
+import os
 from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
-from geoalchemy2 import Geometry
-from backend.database.connection import Base
+
+from backend.database.connection import Base, DATABASE_URL
 
 class Camera(Base):
     __tablename__ = "cameras"
@@ -11,7 +12,12 @@ class Camera(Base):
     name = Column(String, nullable=False)
     latitude = Column(Float, nullable=False) # Legacy float
     longitude = Column(Float, nullable=False) # Legacy float
-    location = Column(Geometry('POINT', srid=4326)) # PostGIS Spatial Column
+    
+    # Only load PostGIS extensions if running against the production Postgres DB
+    if "postgresql" in DATABASE_URL:
+        from geoalchemy2 import Geometry
+        location = Column(Geometry('POINT', srid=4326))
+        
     road_name = Column(String)
     status = Column(String, default="online")
     direction = Column(String)
