@@ -1,0 +1,62 @@
+[
+  {
+    "id": "CAM01",
+    "name": "North Gate Entry",
+    "latitude": 30.7333,
+    "longitude": 76.7794,
+    "road_name": "Sector 17 Main Road",
+    "status": "online",
+    "direction": "Northbound",
+    "video_source": "camera_01.mp4"
+  },
+  {
+    "id": "CAM02",
+    "name": "City Center Junction",
+    "latitude": 30.7345,
+    "longitude": 76.7812,
+    "road_name": "Plaza Avenue",
+    "status": "online",
+    "direction": "Eastbound",
+    "video_source": "camera_02.mp4"
+  },
+  {
+    "id": "CAM03",
+    "name": "West End Boulevard",
+    "latitude": 30.7358,
+    "longitude": 76.7750,
+    "road_name": "Rose Garden Road",
+    "status": "online",
+    "direction": "Westbound",
+    "video_source": "camera_03.mp4"
+  },
+  {
+    "id": "CAM04",
+    "name": "South Highway Exit",
+    "latitude": 30.7289,
+    "longitude": 76.7725,
+    "road_name": "Dakshin Marg",
+    "status": "offline",
+    "direction": "Southbound",
+    "video_source": "camera_04.mp4"
+  },
+  {
+    "id": "CAM05",
+    "name": "Industrial Area Approach",
+    "latitude": 30.7180,
+    "longitude": 76.7901,
+    "road_name": "Purv Marg",
+    "status": "online",
+    "direction": "Southbound",
+    "video_source": "camera_05.mp4"
+  },
+  {
+    "id": "CAM06",
+    "name": "Airport Road Intersection",
+    "latitude": 30.6952,
+    "longitude": 76.7621,
+    "road_name": "Vikas Marg",
+    "status": "online",
+    "direction": "Northbound",
+    "video_source": "camera_06.mp4"
+  }
+]
