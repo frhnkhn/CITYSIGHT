@@ -1,0 +1,47 @@
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Packages
+node_modules/
+dist/
+build/
+*.egg-info/
+
+# Media / Data
+*.mp4
+*.avi
+*.mov
+*.jpg
+*.png
+*.csv
+*.db
+*.sqlite3
+
+# Models
+*.pt
+*.onnx
+*.weights
+*.h5
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.swp
