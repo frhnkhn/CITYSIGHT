@@ -1,7 +1,20 @@
 import { useState } from 'react';
-import { APIProvider, Map, AdvancedMarker, Pin, InfoWindow } from '@vis.gl/react-google-maps';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 import CameraMarker from './CameraMarker';
 import VehicleTrajectory from './VehicleTrajectory';
+
+// Fix for default Leaflet icon paths
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41]
+});
+L.Marker.prototype.options.icon = DefaultIcon;
 
 interface CityTrafficMapProps {
   cameras?: any[];
@@ -10,77 +23,57 @@ interface CityTrafficMapProps {
   alerts?: any[];
 }
 
-// Fallback Mock Map if API Key is missing
-function MockMap() {
-  return (
-    <div style={{ width: '100%', height: '100%', backgroundColor: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-      <div style={{ color: '#64748b', fontSize: '1.25rem', fontWeight: 600, marginBottom: '0.5rem' }}>
-        Development Map Mode
-      </div>
-      <div style={{ color: '#94a3b8', fontSize: '0.9rem' }}>
-        (Google Maps API Key not configured)
-      </div>
-      {/* Optional: Render simplistic DOM representations of markers if needed for debugging */}
-    </div>
-  );
-}
-
 export default function CityTrafficMap({ cameras = [], route = [] }: CityTrafficMapProps) {
-  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   const [selectedCamera, setSelectedCamera] = useState<any>(null);
 
-  const defaultCenter = route.length > 0 ? { lat: route[0].latitude, lng: route[0].longitude } : { lat: 30.9010, lng: 75.8573 };
-
-  if (!apiKey) {
-    return <MockMap />;
-  }
+  const defaultCenter: [number, number] = route.length > 0 
+    ? [route[0].latitude, route[0].longitude] 
+    : [30.9010, 75.8573];
 
   return (
     <div style={{ width: '100%', height: '100%' }}>
-      <APIProvider apiKey={apiKey}>
-        <Map
-          defaultCenter={defaultCenter}
-          defaultZoom={13}
-          mapId="CITYSIGHT_DEMO_MAP"
-          disableDefaultUI={true}
-          style={{ width: '100%', height: '100%' }}
-        >
-          {/* Render Cameras */}
-          {cameras.map((cam, idx) => (
-            <CameraMarker 
-              key={idx} 
-              camera={cam} 
-              onClick={() => setSelectedCamera(cam)} 
-            />
-          ))}
+      <MapContainer 
+        center={defaultCenter} 
+        zoom={13} 
+        style={{ width: '100%', height: '100%', zIndex: 1 }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
 
-          {/* Render Route Trajectory */}
-          {route.length > 0 && <VehicleTrajectory route={route} />}
+        {/* Render Cameras */}
+        {cameras.map((cam, idx) => (
+          <CameraMarker 
+            key={idx} 
+            camera={cam} 
+            onClick={() => setSelectedCamera(cam)} 
+          />
+        ))}
 
-          {/* Render Route Stops (Markers) */}
-          {route.map((stop, idx) => (
-            <AdvancedMarker key={`route-${idx}`} position={{ lat: stop.latitude, lng: stop.longitude }}>
-              <Pin background="#1e40af" borderColor="#1e3a8a" glyphColor="#fff" />
-            </AdvancedMarker>
-          ))}
+        {/* Render Route Trajectory */}
+        {route.length > 0 && <VehicleTrajectory route={route} />}
 
-          {/* Info Window for Camera */}
-          {selectedCamera && (
-            <InfoWindow
-              position={{ lat: selectedCamera.latitude, lng: selectedCamera.longitude }}
-              onCloseClick={() => setSelectedCamera(null)}
-            >
-              <div style={{ color: '#000', minWidth: '150px' }}>
-                <h4 style={{ margin: '0 0 0.5rem 0' }}>{selectedCamera.name}</h4>
-                <div style={{ fontSize: '0.85rem', marginBottom: '0.25rem' }}>ID: {selectedCamera.id}</div>
-                <div style={{ fontSize: '0.85rem', marginBottom: '0.25rem' }}>Status: <strong>{selectedCamera.status}</strong></div>
-                <div style={{ fontSize: '0.85rem' }}>Traffic: <strong>{selectedCamera.traffic}</strong></div>
-              </div>
-            </InfoWindow>
-          )}
+        {/* Render Route Stops (Markers) */}
+        {route.map((stop, idx) => (
+          <Marker key={`route-${idx}`} position={[stop.latitude, stop.longitude]} />
+        ))}
 
-        </Map>
-      </APIProvider>
+        {/* Info Window for Camera */}
+        {selectedCamera && (
+          <Popup
+            position={[selectedCamera.latitude, selectedCamera.longitude]}
+            onClose={() => setSelectedCamera(null)}
+          >
+            <div style={{ color: '#000', minWidth: '150px' }}>
+              <h4 style={{ margin: '0 0 0.5rem 0' }}>{selectedCamera.name}</h4>
+              <div style={{ fontSize: '0.85rem', marginBottom: '0.25rem' }}>ID: {selectedCamera.id}</div>
+              <div style={{ fontSize: '0.85rem', marginBottom: '0.25rem' }}>Status: <strong>{selectedCamera.status}</strong></div>
+              <div style={{ fontSize: '0.85rem' }}>Traffic: <strong>{selectedCamera.traffic}</strong></div>
+            </div>
+          </Popup>
+        )}
+      </MapContainer>
     </div>
   );
 }

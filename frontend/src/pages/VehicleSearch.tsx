@@ -99,9 +99,9 @@ export default function VehicleSearch() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '2rem' }}>
             <div className="card" style={{ padding: '0', overflow: 'hidden', display: 'flex', flexDirection: 'column', minHeight: '400px' }}>
                <div style={{ padding: '1rem 1.5rem', borderBottom: '1px solid var(--border-color)', backgroundColor: '#f8fafc' }}>
-                <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '1rem' }}>Google Maps Trajectory</h3>
+                <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '1rem' }}>Vehicle Trajectory Map</h3>
               </div>
-              <div style={{ flex: 1 }}>
+              <div style={{ flex: 1, minHeight: '350px', position: 'relative' }}>
                 <CityTrafficMap route={result.route} />
               </div>
             </div>

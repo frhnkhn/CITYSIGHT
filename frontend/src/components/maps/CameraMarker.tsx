@@ -1,4 +1,5 @@
-import { AdvancedMarker, Pin } from '@vis.gl/react-google-maps';
+import { Marker } from 'react-leaflet';
+import L from 'leaflet';
 
 interface CameraMarkerProps {
   camera: any;
@@ -26,13 +27,22 @@ export default function CameraMarker({ camera, onClick }: CameraMarkerProps) {
     borderColor = '#d97706';
   }
 
+  const icon = L.divIcon({
+    className: 'custom-camera-marker',
+    html: `<div style="background-color: ${bgColor}; border: 2px solid ${borderColor}; width: 16px; height: 16px; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
+    iconSize: [20, 20],
+    iconAnchor: [10, 10],
+  });
+
   return (
-    <AdvancedMarker
-      position={{ lat: camera.latitude, lng: camera.longitude }}
-      onClick={onClick}
-      title={camera.name}
-    >
-      <Pin background={bgColor} borderColor={borderColor} glyphColor="#fff" />
-    </AdvancedMarker>
+    <Marker
+      position={[camera.latitude, camera.longitude]}
+      icon={icon}
+      eventHandlers={{
+        click: () => {
+          if (onClick) onClick();
+        }
+      }}
+    />
   );
 }

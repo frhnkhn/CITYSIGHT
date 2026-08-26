@@ -5,6 +5,7 @@ import TrafficAnalytics from './pages/TrafficAnalytics';
 import LiveMonitoring from './pages/LiveMonitoring';
 import CameraNetwork from './pages/CameraNetwork';
 import Reports from './pages/Reports';
+import VehicleIntelligence from './pages/VehicleIntelligence';
 
 function SidebarNav() {
   const location = useLocation();
@@ -14,7 +15,8 @@ function SidebarNav() {
     <nav className="sidebar-nav">
       <Link to="/" className={`sidebar-link ${path === '/' ? 'active' : ''}`}>Dashboard</Link>
       <Link to="/live" className={`sidebar-link ${path === '/live' ? 'active' : ''}`}>Live Monitoring</Link>
-      <Link to="/search" className={`sidebar-link ${path === '/search' ? 'active' : ''}`}>Vehicle Search</Link>
+      <Link to="/search" className={`sidebar-link ${path === '/search' ? 'active' : ''}`}>Global Search</Link>
+      <Link to="/intelligence" className={`sidebar-link ${path === '/intelligence' ? 'active' : ''}`}>Vehicle Intelligence</Link>
       <Link to="/analytics" className={`sidebar-link ${path === '/analytics' ? 'active' : ''}`}>Traffic Analytics</Link>
       <Link to="/cameras" className={`sidebar-link ${path === '/cameras' ? 'active' : ''}`}>Camera Network</Link>
       <Link to="/reports" className={`sidebar-link ${path === '/reports' ? 'active' : ''}`}>Reports</Link>
@@ -52,7 +54,7 @@ function App() {
             <div className="topbar-right">
               <div>Last Sync: {new Date().toLocaleTimeString()} IST</div>
               <div style={{ borderLeft: '1px solid var(--border-color)', paddingLeft: '1.5rem' }}>
-                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Officer A. Kumar</span> (Admin)
+                <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>Officer Farhan</span> (Admin)
               </div>
             </div>
           </header>
@@ -62,6 +64,7 @@ function App() {
               <Route path="/" element={<Dashboard />} />
               <Route path="/live" element={<LiveMonitoring />} />
               <Route path="/search" element={<VehicleSearch />} />
+              <Route path="/intelligence" element={<VehicleIntelligence />} />
               <Route path="/analytics" element={<TrafficAnalytics />} />
               <Route path="/cameras" element={<CameraNetwork />} />
               <Route path="/reports" element={<Reports />} />
